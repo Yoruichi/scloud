@@ -56,7 +56,7 @@ APP_OUT=$APP_LOGS/out.log
 
 JAR_NAME=$APP_LIB/$NAME-$VERSION.jar
 
-HEAP_OPTS="-Xmx2048m -Xms2048m -XX:NewSize=128m"
+HEAP_OPTS="-Xmx512m -Xms512m -XX:NewSize=128m"
 JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=12105 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 JAVA_OPTS="-verbosegc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC -XX:+UseParNewGC"
 JAVA_CLS_OPTS="-classpath $APP_CLSPATH"
