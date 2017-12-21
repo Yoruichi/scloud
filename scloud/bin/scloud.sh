@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-usage() { echo "Usage: $0 {start|stop|restart|status} [version]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 {start|stop|restart|status} [profile]" 1>&2; exit 1; }
 
 CURRDIR=`dirname "$0"`
 BASEDIR=`cd "$CURRDIR"; cd ..; pwd`
-PROFILE=online
+PROFILE=peer1
 
 # Retrieve NAME and VERSION(last modified)
 jarfile=$(ls -t ${BASEDIR}/libs/*.jar | head -n1)
@@ -13,8 +13,8 @@ NAME=${jarfile%%-*}
 VERSION=${jarfile#*-}
 VERSION=${VERSION%.jar}
 
-# Override VERSION if specified
-[[ -n $2 ]] && VERSION=$2
+# Override PROFILE if specified
+[[ -n $2 ]] && PROFILE=$2
 
 #
 EXECUTEDIR=${BASEDIR}
