@@ -65,7 +65,10 @@
         <springProfile name="docker">
             <appender-ref ref="DOCKER_CONSOLE"/>
         </springProfile>
-        <springProfile name="online">
+        <springProfile name="peer1">
+            <appender-ref ref="FILE"/>
+        </springProfile>
+        <springProfile name="peer2">
             <appender-ref ref="FILE"/>
         </springProfile>
     </root>
