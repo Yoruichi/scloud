@@ -66,7 +66,7 @@ start() {
      check_running
 	 echo '======================================================'
 	 echo '' `java -version`
-     echo '  command:java -jar' $HEAP_OPTS $JAVA_OPTS $JMX_OPTS $SPRING_BOOT_OPTS $JAR_NAME
+     echo '  command:java -jar' $HEAP_OPTS $JAVA_OPTS $SPRING_BOOT_OPTS $JAR_NAME
      echo '     time:' `date "+%Y-%m-%d %H:%M:%S"`
      echo '  apphome:' $APP_HOME
      echo 'classpath:' $APP_CLSPATH
