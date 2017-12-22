@@ -71,7 +71,7 @@ start() {
      echo '  apphome:' $APP_HOME
      echo 'classpath:' $APP_CLSPATH
      echo '======================================================'
-     java -jar $HEAP_OPTS $JAVA_OPTS $JMX_OPTS $SPRING_BOOT_OPTS $JAR_NAME > "$APP_OUT" 2>&1 &
+     java -jar $HEAP_OPTS $JAVA_OPTS $SPRING_BOOT_OPTS $JAR_NAME > "$APP_OUT" 2>&1 &
      PID=$!
      echo $PID > "$APP_LOGS"/"$NAME".pid
      echo "$NAME run as $PID"
