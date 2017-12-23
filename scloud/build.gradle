@@ -62,6 +62,9 @@ dependencies {
 
     compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
     compile("org.springframework.cloud:spring-cloud-starter-eureka-server:${springCloudVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard:${springCloudVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-actuator:${springCloudVersion}")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
