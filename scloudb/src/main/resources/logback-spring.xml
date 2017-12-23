@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration scan="true">
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <include resource="org/springframework/boot/logging/logback/default.xml"/>
 
-    <!-- The FILE and ASYNC appenders are here for 'online' profile -->
-    <springProfile name="online">
-        <appender name="FILE"
-                  class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>logs/application.log</file>
-            <rollingPolicy
-                    class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>logs/application-log-%d{yyyy-MM-dd}.gz
-                </fileNamePattern>
-                <maxHistory>30</maxHistory>
-            </rollingPolicy>
-            <encoder>
-                <charset>utf-8</charset>
-                <Pattern>%date{yyyy-MM-dd HH:mm:ss} - [%level] - %logger - %message%n%xException
-                </Pattern>
-            </encoder>
-        </appender>
+    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} - [%level] - [%F:%L] - [%t] - %M - %logger - %message%n%xException"/>
 
-        <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
-            <queueSize>512</queueSize>
-            <appender-ref ref="FILE"/>
-        </appender>
-    </springProfile>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
-    <springProfile name="docker">
-        <appender name="DOCKER_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>${FILE_LOG_PATTERN}</pattern>
-                <charset>utf8</charset>
-            </encoder>
-        </appender>
-    </springProfile>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/application.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/application-log-%d{yyyy-MM-dd}.gz
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <appender name="DOCKER_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
 
-    <logger name="com.redteamobile.scloudb" level="#logback.loglevel#"/>
-
+    <logger name="com.redteamobile.bumblebee" level="INFO"/>
     <logger name="ch.qos.logback" level="WARN"/>
     <logger name="com.sun" level="WARN"/>
     <logger name="com.zaxxer" level="WARN"/>
@@ -58,12 +59,9 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="#logback.loglevel#">
+    <root level="INFO">
         <springProfile name="dev">
             <appender-ref ref="CONSOLE"/>
-        </springProfile>
-        <springProfile name="docker">
-            <appender-ref ref="DOCKER_CONSOLE"/>
         </springProfile>
         <springProfile name="online">
             <appender-ref ref="FILE"/>

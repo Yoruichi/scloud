@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+option java_package = "com.redteamobile.scloud";
+option java_outer_classname = "MerchantPb";
+option objc_class_prefix = "MerchantPb";
+
+// Gaga service provider
+service MerchantServ {
+    rpc CheckSign (CheckSignReq) returns (CheckSignResp) {}
+    rpc SaveMerchant (Merchant) returns (MerchantInfo) {}
+    rpc QueryMerchant (QueryMerchantReq) returns (MerchantInfo) {}
+}
+
+// The request message to check sign for merchant
+message CheckSignReq {
+    string merchant_code = 1;
+    string body = 2;
+}
+
+message CheckSignResp {
+    bool success = 1;
+    string except = 2;
+}
+
+message QueryMerchantReq {
+    string merchant_code = 1;
+}
+
+message MerchantInfo {
+    int32 id = 1;
+    string code = 2;
+    Merchant.MerchantStatus status = 3;
+    string name = 4;
+    int32 channel_id = 5;
+}
+
+message Merchant {
+    int32 id = 1;
+    string code = 2;
+    MerchantStatus status = 3;
+    string name = 4;
+    string access_key = 5;
+    string secert_key = 6;
+    int32 channel_id = 7;
+
+    enum MerchantStatus {
+        ACTIVE = 0;
+        INACTIVE = 1;
+    }
+}
