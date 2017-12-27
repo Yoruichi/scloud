@@ -48,24 +48,28 @@ public final class MerchantPb {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016Merchant.proto\"3\n\014CheckSignReq\022\025\n\rmerc" +
-      "hant_code\030\001 \001(\t\022\014\n\004body\030\002 \001(\t\"0\n\rCheckSi" +
-      "gnResp\022\017\n\007success\030\001 \001(\010\022\016\n\006except\030\002 \001(\t\"" +
-      ")\n\020QueryMerchantReq\022\025\n\rmerchant_code\030\001 \001" +
-      "(\t\"t\n\014MerchantInfo\022\n\n\002id\030\001 \001(\005\022\014\n\004code\030\002" +
-      " \001(\t\022(\n\006status\030\003 \001(\0162\030.Merchant.Merchant" +
-      "Status\022\014\n\004name\030\004 \001(\t\022\022\n\nchannel_id\030\005 \001(\005" +
-      "\"\304\001\n\010Merchant\022\n\n\002id\030\001 \001(\005\022\014\n\004code\030\002 \001(\t\022" +
-      "(\n\006status\030\003 \001(\0162\030.Merchant.MerchantStatu" +
-      "s\022\014\n\004name\030\004 \001(\t\022\022\n\naccess_key\030\005 \001(\t\022\022\n\ns",
-      "ecert_key\030\006 \001(\t\022\022\n\nchannel_id\030\007 \001(\005\"*\n\016M" +
-      "erchantStatus\022\n\n\006ACTIVE\020\000\022\014\n\010INACTIVE\020\0012" +
-      "\235\001\n\014MerchantServ\022,\n\tCheckSign\022\r.CheckSig" +
-      "nReq\032\016.CheckSignResp\"\000\022*\n\014SaveMerchant\022\t" +
-      ".Merchant\032\r.MerchantInfo\"\000\0223\n\rQueryMerch" +
-      "ant\022\021.QueryMerchantReq\032\r.MerchantInfo\"\000B" +
-      "7\n\027com.redteamobile.scloudB\nMerchantPbP\001" +
-      "\210\001\001\242\002\nMerchantPbb\006proto3"
+      "\n\016Merchant.proto\"\217\001\n\014CheckSignReq\022\025\n\rmer" +
+      "chant_code\030\001 \001(\t\022\014\n\004body\030\002 \001(\t\022\014\n\004sign\030\003" +
+      " \001(\t\022\022\n\naccess_key\030\004 \001(\t\022\022\n\nrequest_id\030\005" +
+      " \001(\t\022\021\n\ttimestamp\030\006 \001(\003\022\021\n\tsign_type\030\007 \001" +
+      "(\t\"D\n\rCheckSignResp\022\017\n\007success\030\001 \001(\010\022\016\n\006" +
+      "except\030\002 \001(\t\022\022\n\nrequest_id\030\003 \001(\t\"=\n\020Quer" +
+      "yMerchantReq\022\025\n\rmerchant_code\030\001 \001(\t\022\022\n\nr" +
+      "equest_id\030\002 \001(\t\"\210\001\n\014MerchantInfo\022\n\n\002id\030\001" +
+      " \001(\005\022\014\n\004code\030\002 \001(\t\022(\n\006status\030\003 \001(\0162\030.Mer" +
+      "chant.MerchantStatus\022\014\n\004name\030\004 \001(\t\022\022\n\nch",
+      "annel_id\030\005 \001(\005\022\022\n\nrequest_id\030\006 \001(\t\"\304\001\n\010M" +
+      "erchant\022\n\n\002id\030\001 \001(\005\022\014\n\004code\030\002 \001(\t\022(\n\006sta" +
+      "tus\030\003 \001(\0162\030.Merchant.MerchantStatus\022\014\n\004n" +
+      "ame\030\004 \001(\t\022\022\n\naccess_key\030\005 \001(\t\022\022\n\nsecert_" +
+      "key\030\006 \001(\t\022\022\n\nchannel_id\030\007 \001(\005\"*\n\016Merchan" +
+      "tStatus\022\n\n\006ACTIVE\020\000\022\014\n\010INACTIVE\020\0012\235\001\n\014Me" +
+      "rchantServ\022,\n\tCheckSign\022\r.CheckSignReq\032\016" +
+      ".CheckSignResp\"\000\022*\n\014SaveMerchant\022\t.Merch" +
+      "ant\032\r.MerchantInfo\"\000\0223\n\rQueryMerchant\022\021." +
+      "QueryMerchantReq\032\r.MerchantInfo\"\000B7\n\027com",
+      ".redteamobile.scloudB\nMerchantPbP\001\210\001\001\242\002\n" +
+      "MerchantPbb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -84,25 +88,25 @@ public final class MerchantPb {
     internal_static_CheckSignReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CheckSignReq_descriptor,
-        new java.lang.String[] { "MerchantCode", "Body", });
+        new java.lang.String[] { "MerchantCode", "Body", "Sign", "AccessKey", "RequestId", "Timestamp", "SignType", });
     internal_static_CheckSignResp_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_CheckSignResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CheckSignResp_descriptor,
-        new java.lang.String[] { "Success", "Except", });
+        new java.lang.String[] { "Success", "Except", "RequestId", });
     internal_static_QueryMerchantReq_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_QueryMerchantReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QueryMerchantReq_descriptor,
-        new java.lang.String[] { "MerchantCode", });
+        new java.lang.String[] { "MerchantCode", "RequestId", });
     internal_static_MerchantInfo_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_MerchantInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MerchantInfo_descriptor,
-        new java.lang.String[] { "Id", "Code", "Status", "Name", "ChannelId", });
+        new java.lang.String[] { "Id", "Code", "Status", "Name", "ChannelId", "RequestId", });
     internal_static_Merchant_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_Merchant_fieldAccessorTable = new

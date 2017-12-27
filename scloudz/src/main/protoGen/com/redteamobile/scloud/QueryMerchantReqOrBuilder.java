@@ -16,4 +16,14 @@ public interface QueryMerchantReqOrBuilder extends
    */
   com.google.protobuf.ByteString
       getMerchantCodeBytes();
+
+  /**
+   * <code>optional string request_id = 2;</code>
+   */
+  java.lang.String getRequestId();
+  /**
+   * <code>optional string request_id = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getRequestIdBytes();
 }

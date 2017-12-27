@@ -45,4 +45,14 @@ public interface MerchantInfoOrBuilder extends
    * <code>optional int32 channel_id = 5;</code>
    */
   int getChannelId();
+
+  /**
+   * <code>optional string request_id = 6;</code>
+   */
+  java.lang.String getRequestId();
+  /**
+   * <code>optional string request_id = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getRequestIdBytes();
 }

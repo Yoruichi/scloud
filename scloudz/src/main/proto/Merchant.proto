@@ -17,15 +17,22 @@ service MerchantServ {
 message CheckSignReq {
     string merchant_code = 1;
     string body = 2;
+    string sign = 3;
+    string access_key = 4;
+    string request_id = 5;
+    int64 timestamp = 6;
+    string sign_type = 7;
 }
 
 message CheckSignResp {
     bool success = 1;
     string except = 2;
+    string request_id = 3;
 }
 
 message QueryMerchantReq {
     string merchant_code = 1;
+    string request_id = 2;
 }
 
 message MerchantInfo {
@@ -34,6 +41,7 @@ message MerchantInfo {
     Merchant.MerchantStatus status = 3;
     string name = 4;
     int32 channel_id = 5;
+    string request_id = 6;
 }
 
 message Merchant {

@@ -21,6 +21,11 @@ public  final class CheckSignReq extends
   private CheckSignReq() {
     merchantCode_ = "";
     body_ = "";
+    sign_ = "";
+    accessKey_ = "";
+    requestId_ = "";
+    timestamp_ = 0L;
+    signType_ = "";
   }
 
   @java.lang.Override
@@ -58,6 +63,35 @@ public  final class CheckSignReq extends
             java.lang.String s = input.readStringRequireUtf8();
 
             body_ = s;
+            break;
+          }
+          case 26: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            sign_ = s;
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            accessKey_ = s;
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            requestId_ = s;
+            break;
+          }
+          case 48: {
+
+            timestamp_ = input.readInt64();
+            break;
+          }
+          case 58: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            signType_ = s;
             break;
           }
         }
@@ -151,6 +185,151 @@ public  final class CheckSignReq extends
     }
   }
 
+  public static final int SIGN_FIELD_NUMBER = 3;
+  private volatile java.lang.Object sign_;
+  /**
+   * <code>optional string sign = 3;</code>
+   */
+  public java.lang.String getSign() {
+    java.lang.Object ref = sign_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sign_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string sign = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSignBytes() {
+    java.lang.Object ref = sign_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sign_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int ACCESS_KEY_FIELD_NUMBER = 4;
+  private volatile java.lang.Object accessKey_;
+  /**
+   * <code>optional string access_key = 4;</code>
+   */
+  public java.lang.String getAccessKey() {
+    java.lang.Object ref = accessKey_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      accessKey_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string access_key = 4;</code>
+   */
+  public com.google.protobuf.ByteString
+      getAccessKeyBytes() {
+    java.lang.Object ref = accessKey_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      accessKey_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int REQUEST_ID_FIELD_NUMBER = 5;
+  private volatile java.lang.Object requestId_;
+  /**
+   * <code>optional string request_id = 5;</code>
+   */
+  public java.lang.String getRequestId() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requestId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string request_id = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getRequestIdBytes() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      requestId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TIMESTAMP_FIELD_NUMBER = 6;
+  private long timestamp_;
+  /**
+   * <code>optional int64 timestamp = 6;</code>
+   */
+  public long getTimestamp() {
+    return timestamp_;
+  }
+
+  public static final int SIGN_TYPE_FIELD_NUMBER = 7;
+  private volatile java.lang.Object signType_;
+  /**
+   * <code>optional string sign_type = 7;</code>
+   */
+  public java.lang.String getSignType() {
+    java.lang.Object ref = signType_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      signType_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string sign_type = 7;</code>
+   */
+  public com.google.protobuf.ByteString
+      getSignTypeBytes() {
+    java.lang.Object ref = signType_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      signType_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -169,6 +348,21 @@ public  final class CheckSignReq extends
     if (!getBodyBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, body_);
     }
+    if (!getSignBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sign_);
+    }
+    if (!getAccessKeyBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, accessKey_);
+    }
+    if (!getRequestIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, requestId_);
+    }
+    if (timestamp_ != 0L) {
+      output.writeInt64(6, timestamp_);
+    }
+    if (!getSignTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, signType_);
+    }
   }
 
   public int getSerializedSize() {
@@ -181,6 +375,22 @@ public  final class CheckSignReq extends
     }
     if (!getBodyBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, body_);
+    }
+    if (!getSignBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sign_);
+    }
+    if (!getAccessKeyBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, accessKey_);
+    }
+    if (!getRequestIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, requestId_);
+    }
+    if (timestamp_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(6, timestamp_);
+    }
+    if (!getSignTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, signType_);
     }
     memoizedSize = size;
     return size;
@@ -202,6 +412,16 @@ public  final class CheckSignReq extends
         .equals(other.getMerchantCode());
     result = result && getBody()
         .equals(other.getBody());
+    result = result && getSign()
+        .equals(other.getSign());
+    result = result && getAccessKey()
+        .equals(other.getAccessKey());
+    result = result && getRequestId()
+        .equals(other.getRequestId());
+    result = result && (getTimestamp()
+        == other.getTimestamp());
+    result = result && getSignType()
+        .equals(other.getSignType());
     return result;
   }
 
@@ -216,6 +436,17 @@ public  final class CheckSignReq extends
     hash = (53 * hash) + getMerchantCode().hashCode();
     hash = (37 * hash) + BODY_FIELD_NUMBER;
     hash = (53 * hash) + getBody().hashCode();
+    hash = (37 * hash) + SIGN_FIELD_NUMBER;
+    hash = (53 * hash) + getSign().hashCode();
+    hash = (37 * hash) + ACCESS_KEY_FIELD_NUMBER;
+    hash = (53 * hash) + getAccessKey().hashCode();
+    hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getRequestId().hashCode();
+    hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTimestamp());
+    hash = (37 * hash) + SIGN_TYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getSignType().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -342,6 +573,16 @@ public  final class CheckSignReq extends
 
       body_ = "";
 
+      sign_ = "";
+
+      accessKey_ = "";
+
+      requestId_ = "";
+
+      timestamp_ = 0L;
+
+      signType_ = "";
+
       return this;
     }
 
@@ -366,6 +607,11 @@ public  final class CheckSignReq extends
       com.redteamobile.scloud.CheckSignReq result = new com.redteamobile.scloud.CheckSignReq(this);
       result.merchantCode_ = merchantCode_;
       result.body_ = body_;
+      result.sign_ = sign_;
+      result.accessKey_ = accessKey_;
+      result.requestId_ = requestId_;
+      result.timestamp_ = timestamp_;
+      result.signType_ = signType_;
       onBuilt();
       return result;
     }
@@ -413,6 +659,25 @@ public  final class CheckSignReq extends
       }
       if (!other.getBody().isEmpty()) {
         body_ = other.body_;
+        onChanged();
+      }
+      if (!other.getSign().isEmpty()) {
+        sign_ = other.sign_;
+        onChanged();
+      }
+      if (!other.getAccessKey().isEmpty()) {
+        accessKey_ = other.accessKey_;
+        onChanged();
+      }
+      if (!other.getRequestId().isEmpty()) {
+        requestId_ = other.requestId_;
+        onChanged();
+      }
+      if (other.getTimestamp() != 0L) {
+        setTimestamp(other.getTimestamp());
+      }
+      if (!other.getSignType().isEmpty()) {
+        signType_ = other.signType_;
         onChanged();
       }
       onChanged();
@@ -575,6 +840,308 @@ public  final class CheckSignReq extends
   checkByteStringIsUtf8(value);
       
       body_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object sign_ = "";
+    /**
+     * <code>optional string sign = 3;</code>
+     */
+    public java.lang.String getSign() {
+      java.lang.Object ref = sign_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sign_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string sign = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSignBytes() {
+      java.lang.Object ref = sign_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sign_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string sign = 3;</code>
+     */
+    public Builder setSign(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      sign_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sign = 3;</code>
+     */
+    public Builder clearSign() {
+      
+      sign_ = getDefaultInstance().getSign();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sign = 3;</code>
+     */
+    public Builder setSignBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      sign_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object accessKey_ = "";
+    /**
+     * <code>optional string access_key = 4;</code>
+     */
+    public java.lang.String getAccessKey() {
+      java.lang.Object ref = accessKey_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        accessKey_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string access_key = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAccessKeyBytes() {
+      java.lang.Object ref = accessKey_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        accessKey_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string access_key = 4;</code>
+     */
+    public Builder setAccessKey(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      accessKey_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string access_key = 4;</code>
+     */
+    public Builder clearAccessKey() {
+      
+      accessKey_ = getDefaultInstance().getAccessKey();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string access_key = 4;</code>
+     */
+    public Builder setAccessKeyBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      accessKey_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object requestId_ = "";
+    /**
+     * <code>optional string request_id = 5;</code>
+     */
+    public java.lang.String getRequestId() {
+      java.lang.Object ref = requestId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRequestIdBytes() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 5;</code>
+     */
+    public Builder setRequestId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      requestId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 5;</code>
+     */
+    public Builder clearRequestId() {
+      
+      requestId_ = getDefaultInstance().getRequestId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 5;</code>
+     */
+    public Builder setRequestIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      requestId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long timestamp_ ;
+    /**
+     * <code>optional int64 timestamp = 6;</code>
+     */
+    public long getTimestamp() {
+      return timestamp_;
+    }
+    /**
+     * <code>optional int64 timestamp = 6;</code>
+     */
+    public Builder setTimestamp(long value) {
+      
+      timestamp_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 timestamp = 6;</code>
+     */
+    public Builder clearTimestamp() {
+      
+      timestamp_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object signType_ = "";
+    /**
+     * <code>optional string sign_type = 7;</code>
+     */
+    public java.lang.String getSignType() {
+      java.lang.Object ref = signType_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signType_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string sign_type = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSignTypeBytes() {
+      java.lang.Object ref = signType_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string sign_type = 7;</code>
+     */
+    public Builder setSignType(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      signType_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sign_type = 7;</code>
+     */
+    public Builder clearSignType() {
+      
+      signType_ = getDefaultInstance().getSignType();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string sign_type = 7;</code>
+     */
+    public Builder setSignTypeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      signType_ = value;
       onChanged();
       return this;
     }

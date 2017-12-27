@@ -26,4 +26,49 @@ public interface CheckSignReqOrBuilder extends
    */
   com.google.protobuf.ByteString
       getBodyBytes();
+
+  /**
+   * <code>optional string sign = 3;</code>
+   */
+  java.lang.String getSign();
+  /**
+   * <code>optional string sign = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getSignBytes();
+
+  /**
+   * <code>optional string access_key = 4;</code>
+   */
+  java.lang.String getAccessKey();
+  /**
+   * <code>optional string access_key = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getAccessKeyBytes();
+
+  /**
+   * <code>optional string request_id = 5;</code>
+   */
+  java.lang.String getRequestId();
+  /**
+   * <code>optional string request_id = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getRequestIdBytes();
+
+  /**
+   * <code>optional int64 timestamp = 6;</code>
+   */
+  long getTimestamp();
+
+  /**
+   * <code>optional string sign_type = 7;</code>
+   */
+  java.lang.String getSignType();
+  /**
+   * <code>optional string sign_type = 7;</code>
+   */
+  com.google.protobuf.ByteString
+      getSignTypeBytes();
 }

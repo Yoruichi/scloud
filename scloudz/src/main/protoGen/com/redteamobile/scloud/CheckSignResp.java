@@ -17,6 +17,7 @@ public  final class CheckSignResp extends
   private CheckSignResp() {
     success_ = false;
     except_ = "";
+    requestId_ = "";
   }
 
   @java.lang.Override
@@ -53,6 +54,12 @@ public  final class CheckSignResp extends
             java.lang.String s = input.readStringRequireUtf8();
 
             except_ = s;
+            break;
+          }
+          case 26: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            requestId_ = s;
             break;
           }
         }
@@ -121,6 +128,40 @@ public  final class CheckSignResp extends
     }
   }
 
+  public static final int REQUEST_ID_FIELD_NUMBER = 3;
+  private volatile java.lang.Object requestId_;
+  /**
+   * <code>optional string request_id = 3;</code>
+   */
+  public java.lang.String getRequestId() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requestId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string request_id = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getRequestIdBytes() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      requestId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -139,6 +180,9 @@ public  final class CheckSignResp extends
     if (!getExceptBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, except_);
     }
+    if (!getRequestIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, requestId_);
+    }
   }
 
   public int getSerializedSize() {
@@ -152,6 +196,9 @@ public  final class CheckSignResp extends
     }
     if (!getExceptBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, except_);
+    }
+    if (!getRequestIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, requestId_);
     }
     memoizedSize = size;
     return size;
@@ -173,6 +220,8 @@ public  final class CheckSignResp extends
         == other.getSuccess());
     result = result && getExcept()
         .equals(other.getExcept());
+    result = result && getRequestId()
+        .equals(other.getRequestId());
     return result;
   }
 
@@ -188,6 +237,8 @@ public  final class CheckSignResp extends
         getSuccess());
     hash = (37 * hash) + EXCEPT_FIELD_NUMBER;
     hash = (53 * hash) + getExcept().hashCode();
+    hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getRequestId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -310,6 +361,8 @@ public  final class CheckSignResp extends
 
       except_ = "";
 
+      requestId_ = "";
+
       return this;
     }
 
@@ -334,6 +387,7 @@ public  final class CheckSignResp extends
       com.redteamobile.scloud.CheckSignResp result = new com.redteamobile.scloud.CheckSignResp(this);
       result.success_ = success_;
       result.except_ = except_;
+      result.requestId_ = requestId_;
       onBuilt();
       return result;
     }
@@ -380,6 +434,10 @@ public  final class CheckSignResp extends
       }
       if (!other.getExcept().isEmpty()) {
         except_ = other.except_;
+        onChanged();
+      }
+      if (!other.getRequestId().isEmpty()) {
+        requestId_ = other.requestId_;
         onChanged();
       }
       onChanged();
@@ -499,6 +557,75 @@ public  final class CheckSignResp extends
   checkByteStringIsUtf8(value);
       
       except_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object requestId_ = "";
+    /**
+     * <code>optional string request_id = 3;</code>
+     */
+    public java.lang.String getRequestId() {
+      java.lang.Object ref = requestId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRequestIdBytes() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 3;</code>
+     */
+    public Builder setRequestId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      requestId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 3;</code>
+     */
+    public Builder clearRequestId() {
+      
+      requestId_ = getDefaultInstance().getRequestId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 3;</code>
+     */
+    public Builder setRequestIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      requestId_ = value;
       onChanged();
       return this;
     }

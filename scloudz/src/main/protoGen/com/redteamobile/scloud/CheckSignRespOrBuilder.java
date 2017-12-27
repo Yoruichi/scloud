@@ -21,4 +21,14 @@ public interface CheckSignRespOrBuilder extends
    */
   com.google.protobuf.ByteString
       getExceptBytes();
+
+  /**
+   * <code>optional string request_id = 3;</code>
+   */
+  java.lang.String getRequestId();
+  /**
+   * <code>optional string request_id = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getRequestIdBytes();
 }

@@ -16,6 +16,7 @@ public  final class QueryMerchantReq extends
   }
   private QueryMerchantReq() {
     merchantCode_ = "";
+    requestId_ = "";
   }
 
   @java.lang.Override
@@ -47,6 +48,12 @@ public  final class QueryMerchantReq extends
             java.lang.String s = input.readStringRequireUtf8();
 
             merchantCode_ = s;
+            break;
+          }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            requestId_ = s;
             break;
           }
         }
@@ -106,6 +113,40 @@ public  final class QueryMerchantReq extends
     }
   }
 
+  public static final int REQUEST_ID_FIELD_NUMBER = 2;
+  private volatile java.lang.Object requestId_;
+  /**
+   * <code>optional string request_id = 2;</code>
+   */
+  public java.lang.String getRequestId() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requestId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string request_id = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getRequestIdBytes() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      requestId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -121,6 +162,9 @@ public  final class QueryMerchantReq extends
     if (!getMerchantCodeBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, merchantCode_);
     }
+    if (!getRequestIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, requestId_);
+    }
   }
 
   public int getSerializedSize() {
@@ -130,6 +174,9 @@ public  final class QueryMerchantReq extends
     size = 0;
     if (!getMerchantCodeBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, merchantCode_);
+    }
+    if (!getRequestIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, requestId_);
     }
     memoizedSize = size;
     return size;
@@ -149,6 +196,8 @@ public  final class QueryMerchantReq extends
     boolean result = true;
     result = result && getMerchantCode()
         .equals(other.getMerchantCode());
+    result = result && getRequestId()
+        .equals(other.getRequestId());
     return result;
   }
 
@@ -161,6 +210,8 @@ public  final class QueryMerchantReq extends
     hash = (19 * hash) + getDescriptorForType().hashCode();
     hash = (37 * hash) + MERCHANT_CODE_FIELD_NUMBER;
     hash = (53 * hash) + getMerchantCode().hashCode();
+    hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getRequestId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -281,6 +332,8 @@ public  final class QueryMerchantReq extends
       super.clear();
       merchantCode_ = "";
 
+      requestId_ = "";
+
       return this;
     }
 
@@ -304,6 +357,7 @@ public  final class QueryMerchantReq extends
     public com.redteamobile.scloud.QueryMerchantReq buildPartial() {
       com.redteamobile.scloud.QueryMerchantReq result = new com.redteamobile.scloud.QueryMerchantReq(this);
       result.merchantCode_ = merchantCode_;
+      result.requestId_ = requestId_;
       onBuilt();
       return result;
     }
@@ -347,6 +401,10 @@ public  final class QueryMerchantReq extends
       if (other == com.redteamobile.scloud.QueryMerchantReq.getDefaultInstance()) return this;
       if (!other.getMerchantCode().isEmpty()) {
         merchantCode_ = other.merchantCode_;
+        onChanged();
+      }
+      if (!other.getRequestId().isEmpty()) {
+        requestId_ = other.requestId_;
         onChanged();
       }
       onChanged();
@@ -440,6 +498,75 @@ public  final class QueryMerchantReq extends
   checkByteStringIsUtf8(value);
       
       merchantCode_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object requestId_ = "";
+    /**
+     * <code>optional string request_id = 2;</code>
+     */
+    public java.lang.String getRequestId() {
+      java.lang.Object ref = requestId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRequestIdBytes() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 2;</code>
+     */
+    public Builder setRequestId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      requestId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 2;</code>
+     */
+    public Builder clearRequestId() {
+      
+      requestId_ = getDefaultInstance().getRequestId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 2;</code>
+     */
+    public Builder setRequestIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      requestId_ = value;
       onChanged();
       return this;
     }

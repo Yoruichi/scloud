@@ -20,6 +20,7 @@ public  final class MerchantInfo extends
     status_ = 0;
     name_ = "";
     channelId_ = 0;
+    requestId_ = "";
   }
 
   @java.lang.Override
@@ -73,6 +74,12 @@ public  final class MerchantInfo extends
           case 40: {
 
             channelId_ = input.readInt32();
+            break;
+          }
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            requestId_ = s;
             break;
           }
         }
@@ -200,6 +207,40 @@ public  final class MerchantInfo extends
     return channelId_;
   }
 
+  public static final int REQUEST_ID_FIELD_NUMBER = 6;
+  private volatile java.lang.Object requestId_;
+  /**
+   * <code>optional string request_id = 6;</code>
+   */
+  public java.lang.String getRequestId() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requestId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>optional string request_id = 6;</code>
+   */
+  public com.google.protobuf.ByteString
+      getRequestIdBytes() {
+    java.lang.Object ref = requestId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      requestId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -227,6 +268,9 @@ public  final class MerchantInfo extends
     if (channelId_ != 0) {
       output.writeInt32(5, channelId_);
     }
+    if (!getRequestIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, requestId_);
+    }
   }
 
   public int getSerializedSize() {
@@ -251,6 +295,9 @@ public  final class MerchantInfo extends
     if (channelId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(5, channelId_);
+    }
+    if (!getRequestIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, requestId_);
     }
     memoizedSize = size;
     return size;
@@ -277,6 +324,8 @@ public  final class MerchantInfo extends
         .equals(other.getName());
     result = result && (getChannelId()
         == other.getChannelId());
+    result = result && getRequestId()
+        .equals(other.getRequestId());
     return result;
   }
 
@@ -297,6 +346,8 @@ public  final class MerchantInfo extends
     hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + CHANNEL_ID_FIELD_NUMBER;
     hash = (53 * hash) + getChannelId();
+    hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getRequestId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -425,6 +476,8 @@ public  final class MerchantInfo extends
 
       channelId_ = 0;
 
+      requestId_ = "";
+
       return this;
     }
 
@@ -452,6 +505,7 @@ public  final class MerchantInfo extends
       result.status_ = status_;
       result.name_ = name_;
       result.channelId_ = channelId_;
+      result.requestId_ = requestId_;
       onBuilt();
       return result;
     }
@@ -509,6 +563,10 @@ public  final class MerchantInfo extends
       }
       if (other.getChannelId() != 0) {
         setChannelId(other.getChannelId());
+      }
+      if (!other.getRequestId().isEmpty()) {
+        requestId_ = other.requestId_;
+        onChanged();
       }
       onChanged();
       return this;
@@ -766,6 +824,75 @@ public  final class MerchantInfo extends
     public Builder clearChannelId() {
       
       channelId_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object requestId_ = "";
+    /**
+     * <code>optional string request_id = 6;</code>
+     */
+    public java.lang.String getRequestId() {
+      java.lang.Object ref = requestId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requestId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRequestIdBytes() {
+      java.lang.Object ref = requestId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        requestId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string request_id = 6;</code>
+     */
+    public Builder setRequestId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      requestId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 6;</code>
+     */
+    public Builder clearRequestId() {
+      
+      requestId_ = getDefaultInstance().getRequestId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string request_id = 6;</code>
+     */
+    public Builder setRequestIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      requestId_ = value;
       onChanged();
       return this;
     }
