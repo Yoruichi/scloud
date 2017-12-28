@@ -47,7 +47,7 @@ public class ConsumerController extends BaseController {
         return client.testJson(user, System.currentTimeMillis() + "");
     }
 
-    @RequestMapping(value = "/rpc/checkSign/{merchantCode}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rpc/checkSign/{merchantCode}", method = RequestMethod.POST)
     public ResponseStruct checkSign(@ApiParam(required = true) @PathVariable String merchantCode,
             @ApiParam(required = true,
                     value = "{\"metadata\":\n{\"signType\":\"SHA1\",\n\"timestamp\":,\n\"accessKey\":\"\"},\n\"content\":{\"status\":\"\",\n\"type\":1}}")
