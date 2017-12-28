@@ -37,8 +37,8 @@ repositories {
     jcenter()
     mavenCentral()
     maven {
-        url "http://repo.redtea.io:8081/nexus/content/groups/public/"
-//        url "http://repo.redtea.internal:8081/nexus/content/groups/public/"
+//        url "http://repo.redtea.io:8081/nexus/content/groups/public/"
+        url "http://repo.redtea.internal:8081/nexus/content/groups/public/"
     }
 }
 
