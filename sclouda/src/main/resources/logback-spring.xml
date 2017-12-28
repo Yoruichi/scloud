@@ -39,7 +39,7 @@
     </appender>
 
 
-    <logger name="com.redteamobile.bumblebee" level="INFO"/>
+    <logger name="com.redteamobile.bumblebee" level="DEBUG"/>
     <logger name="ch.qos.logback" level="WARN"/>
     <logger name="com.sun" level="WARN"/>
     <logger name="com.zaxxer" level="WARN"/>
@@ -59,7 +59,10 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="INFO">
+    <root level="DEBUG">
+        <springProfile name="default">
+            <appender-ref ref="CONSOLE"/>
+        </springProfile>
         <springProfile name="dev">
             <appender-ref ref="CONSOLE"/>
         </springProfile>

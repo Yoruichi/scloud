@@ -63,9 +63,8 @@ dependencies {
 
     compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
     compile("org.springframework.cloud:spring-cloud-starter-eureka-server:${springCloudVersion}")
-    compile("org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}")
 
-    compile('org.lognet:grpc-spring-boot-starter:2.0.5')
+    compile('org.lognet:grpc-spring-boot-starter:2.1.4')
     compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.4.0'
     compile group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.4.0'
 
