@@ -53,7 +53,7 @@ public class ConsumerController extends BaseController {
                     value = "{\"metadata\":\n{\"signType\":\"SHA1\",\n\"timestamp\":,\n\"accessKey\":\"\"},\n\"content\":{\"status\":\"\",\n\"type\":1}}")
             @RequestBody JsonNode body,
             @RequestHeader("signature") String sign) {
-        logger.info("Receive request body {} with sign {} from merchant {}", body.asText(), sign, merchantCode);
+        logger.info("Receive request body {} with sign {} from merchant {}", body.toString(), sign, merchantCode);
         return succ(body);
 //        try {
 //            CheckSignResp resp = checkSignService.checkSign(merchantCode, sign, body);
