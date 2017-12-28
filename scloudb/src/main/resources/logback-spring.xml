@@ -60,6 +60,9 @@
     </contextListener>
 
     <root level="INFO">
+        <springProfile name="default">
+            <appender-ref ref="CONSOLE"/>
+        </springProfile>
         <springProfile name="dev">
             <appender-ref ref="CONSOLE"/>
         </springProfile>
