@@ -74,14 +74,17 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
                 || Strings.isNullOrEmpty(merchantCode)
                 || Strings.isNullOrEmpty(accessKey)
                 || Strings.isNullOrEmpty(sign)) {
+            logger.error("Missing required parameters in request.");
             responseObserver.onError(new Exception("Missing required parameters in request."));
             return;
         }
         if (Math.abs(System.currentTimeMillis() - timestamp) > 10 * 60 * 1000) {
+            logger.error("Request time was not valid.");
             responseObserver.onError(new Exception("Request time was not valid."));
             return;
         }
         if (!signType.toUpperCase().equals("SHA1")) {
+            logger.error("Request signature type is not supported.");
             responseObserver.onError(new Exception("Request signature type is not supported."));
             return;
         }
@@ -89,6 +92,7 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
             JsonNode b = new ObjectMapper().readTree(body);
             Merchant merchant = merchantDao.select(Merchant.build().setCode(merchantCode));
             if (!accessKey.equals(merchant.getAccessKey())) {
+                logger.error("Parameters missing in request.");
                 responseObserver.onError(new Exception("Parameters missing in request."));
                 return;
             }
@@ -97,6 +101,7 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
             String expected = SHA1(strToSign);
             logger.debug("Got sign {}, and expected {}.", sign, expected);
             if (!sign.equals(expected)) {
+                logger.error("Not valid sign.");
                 responseObserver.onError(new Exception("Not valid sign."));
             } else {
                 responseObserver
