@@ -1,13 +1,15 @@
 package com.redteamobile.scloudb.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.redteamobile.scloud.CheckSignResp;
 import com.redteamobile.scloudb.model.page.ResponseStruct;
 import com.redteamobile.scloudb.model.req.UserParam;
+import com.redteamobile.scloudb.service.CheckSignService;
 import com.redteamobile.scloudb.service.ComputeClient;
 import com.redteamobile.scloudb.service.ComputeService;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -16,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class ConsumerController extends BaseController {
 
+    @Autowired
+    private CheckSignService checkSignService;
     @Autowired
     private ComputeService computeService;
     @Autowired
@@ -28,7 +32,7 @@ public class ConsumerController extends BaseController {
 
     @RequestMapping(value = "/addFeign", method = RequestMethod.GET)
     public String addFeign() {
-        return client.add(10,10);
+        return client.add(10, 10);
     }
 
     @RequestMapping(value = "/test/json", method = RequestMethod.GET)
@@ -41,5 +45,25 @@ public class ConsumerController extends BaseController {
         UserParam user = new UserParam();
         user.setName("Feign");
         return client.testJson(user, System.currentTimeMillis() + "");
+    }
+
+    @RequestMapping(value = "/rpc/checkSign/{merchantCode}", method = RequestMethod.GET)
+    public ResponseStruct checkSign(@ApiParam(required = true) @PathVariable String merchantCode,
+            @ApiParam(required = true,
+                    value = "{\"metadata\":\n{\"signType\":\"SHA1\",\n\"timestamp\":,\n\"accessKey\":\"\"},\n\"content\":{\"status\":\"\",\n\"type\":1}}")
+            @RequestBody JsonNode body,
+            @RequestHeader("signature") String sign) {
+        try {
+            CheckSignResp resp =
+                    checkSignService.checkSign(merchantCode, sign, body);
+            if (resp.getSuccess()) {
+                return succ(sign);
+            } else {
+                return failedWithMsg(resp.getExcept());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return failedWithMsg("Network failed.");
+        }
     }
 }
