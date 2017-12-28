@@ -23,7 +23,7 @@ public class CheckSignService {
         CheckSignReq request = CheckSignReq.newBuilder()
                 .setMerchantCode(merchantCode)
                 .setRequestId(body.get("metadata").get("timestamp").asText())
-                .setBody(body.asText())
+                .setBody(body.toString())
                 .setAccessKey(body.get("metadata").get("accessKey").asText())
                 .setTimestamp(body.get("metadata").get("timestamp").asLong())
                 .setSignType(body.get("metadata").get("signType").asText())
