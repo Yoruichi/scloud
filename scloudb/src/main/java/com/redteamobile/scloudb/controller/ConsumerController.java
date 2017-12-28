@@ -62,7 +62,7 @@ public class ConsumerController extends BaseController {
                 return failedWithMsg(resp.getExcept());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("", e);
             return failedWithMsg("Network failed.");
         }
     }
