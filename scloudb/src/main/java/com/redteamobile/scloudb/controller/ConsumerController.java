@@ -54,16 +54,17 @@ public class ConsumerController extends BaseController {
             @RequestBody JsonNode body,
             @RequestHeader("signature") String sign) {
         logger.info("Receive request body {} with sign {} from merchant {}", body.asText(), sign, merchantCode);
-        try {
-            CheckSignResp resp = checkSignService.checkSign(merchantCode, sign, body);
-            if (resp.getSuccess()) {
-                return succ(sign);
-            } else {
-                return failedWithMsg(resp.getExcept());
-            }
-        } catch (Exception e) {
-            logger.error("", e);
-            return failedWithMsg("Network failed.");
-        }
+        return succ(body);
+//        try {
+//            CheckSignResp resp = checkSignService.checkSign(merchantCode, sign, body);
+//            if (resp.getSuccess()) {
+//                return succ(sign);
+//            } else {
+//                return failedWithMsg(resp.getExcept());
+//            }
+//        } catch (Exception e) {
+//            logger.error("", e);
+//            return failedWithMsg("Network failed.");
+//        }
     }
 }
