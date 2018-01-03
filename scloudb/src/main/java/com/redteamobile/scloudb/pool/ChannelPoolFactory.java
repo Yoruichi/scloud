@@ -8,14 +8,12 @@ import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 
 /**
  * Created by yoruichi on 17/9/13.
  */
-@Component
 public class ChannelPoolFactory implements PooledObjectFactory<ManagedChannel> {
 
     private String host;
