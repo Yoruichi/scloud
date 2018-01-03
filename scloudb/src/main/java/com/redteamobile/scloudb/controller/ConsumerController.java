@@ -59,7 +59,7 @@ public class ConsumerController extends BaseController {
             if (resp.getSuccess()) {
                 return succ(sign);
             } else {
-                return failedWithMsg(resp.getExcept());
+                return failedWithMsg(resp.getMessage());
             }
         } catch (Exception e) {
             logger.error("", e);
