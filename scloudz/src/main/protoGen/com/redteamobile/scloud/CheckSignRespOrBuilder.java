@@ -13,14 +13,14 @@ public interface CheckSignRespOrBuilder extends
   boolean getSuccess();
 
   /**
-   * <code>optional string except = 2;</code>
+   * <code>optional string message = 2;</code>
    */
-  java.lang.String getExcept();
+  java.lang.String getMessage();
   /**
-   * <code>optional string except = 2;</code>
+   * <code>optional string message = 2;</code>
    */
   com.google.protobuf.ByteString
-      getExceptBytes();
+      getMessageBytes();
 
   /**
    * <code>optional string request_id = 3;</code>

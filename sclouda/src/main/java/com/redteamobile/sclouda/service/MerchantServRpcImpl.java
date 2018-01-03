@@ -8,6 +8,8 @@ import com.redteamobile.scloud.CheckSignResp;
 import com.redteamobile.scloud.MerchantServGrpc;
 import com.redteamobile.sclouda.dao.MerchantDao;
 import com.redteamobile.sclouda.model.entity.Merchant;
+import io.grpc.Status;
+import io.grpc.StatusException;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.slf4j.Logger;
@@ -70,30 +72,40 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
         String sign = request.getSign();
         logger.info("Receive request with id {} and body {} for merchant code {}", requestId, body,
                 merchantCode);
+        CheckSignResp.Builder builder =
+                CheckSignResp.newBuilder().setSuccess(false).setRequestId(requestId);
         if (Strings.isNullOrEmpty(body)
                 || Strings.isNullOrEmpty(merchantCode)
                 || Strings.isNullOrEmpty(accessKey)
                 || Strings.isNullOrEmpty(sign)) {
-            logger.error("Missing required parameters in request.");
-            responseObserver.onError(new Exception("Missing required parameters in request."));
+            logger.warn("Missing required parameters in request.");
+            responseObserver
+                    .onNext(builder.setMessage("Missing required parameters in request.").build());
+            responseObserver.onCompleted();
             return;
         }
         if (Math.abs(System.currentTimeMillis() - timestamp) > 10 * 60 * 1000) {
-            logger.error("Request time was not valid.");
-            responseObserver.onError(new Exception("Request time was not valid."));
+            logger.warn("Request time was not valid.");
+            responseObserver
+                    .onNext(builder.setMessage("Request time was not valid.").build());
+            responseObserver.onCompleted();
             return;
         }
         if (!signType.toUpperCase().equals("SHA1")) {
-            logger.error("Request signature type is not supported.");
-            responseObserver.onError(new Exception("Request signature type is not supported."));
+            logger.warn("Request signature type is not supported.");
+            responseObserver
+                    .onNext(builder.setMessage("Request signature type is not supported.").build());
+            responseObserver.onCompleted();
             return;
         }
         try {
             JsonNode b = new ObjectMapper().readTree(body);
             Merchant merchant = merchantDao.select(Merchant.build().setCode(merchantCode));
             if (!accessKey.equals(merchant.getAccessKey())) {
-                logger.error("Parameters missing in request.");
-                responseObserver.onError(new Exception("Parameters missing in request."));
+                logger.warn("Wrong access key for given merchant.");
+                responseObserver
+                        .onNext(builder.setMessage("Wrong access key for given merchant.").build());
+                responseObserver.onCompleted();
                 return;
             }
 
@@ -101,22 +113,24 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
             String expected = SHA1(strToSign);
             logger.debug("Got sign {}, and expected {}.", sign, expected);
             if (!sign.equals(expected)) {
-                logger.error("Not valid sign.");
-                responseObserver.onError(new Exception("Not valid sign."));
-            } else {
-                responseObserver
-                        .onNext(CheckSignResp.newBuilder().setSuccess(true).setRequestId(requestId)
-                                .build());
+                logger.warn("Not valid sign.");
+                responseObserver.onNext(builder.setMessage("Not valid sign.").build());
                 responseObserver.onCompleted();
+                return;
             }
+
+            responseObserver.onNext(builder.setSuccess(true).build());
+            responseObserver.onCompleted();
+
         } catch (IOException e) {
             logger.error("Error when parse body {} to JSON.Caused by: ", body, e);
             e.printStackTrace();
-            responseObserver.onError(new Exception("Not valid JSON body in request."));
+            responseObserver.onNext(builder.setMessage("Not valid JSON body in request.").build());
+            responseObserver.onCompleted();
         } catch (Exception e) {
             logger.error("Error when query merchant with code {}. Caused by: ", merchantCode, e);
             e.printStackTrace();
-            responseObserver.onError(new Exception("Not valid merchant code in request."));
+            responseObserver.onError(new StatusException(Status.UNAVAILABLE));
         }
     }
 }

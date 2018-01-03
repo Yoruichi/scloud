@@ -16,7 +16,7 @@ public  final class CheckSignResp extends
   }
   private CheckSignResp() {
     success_ = false;
-    except_ = "";
+    message_ = "";
     requestId_ = "";
   }
 
@@ -53,7 +53,7 @@ public  final class CheckSignResp extends
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            except_ = s;
+            message_ = s;
             break;
           }
           case 26: {
@@ -94,34 +94,34 @@ public  final class CheckSignResp extends
     return success_;
   }
 
-  public static final int EXCEPT_FIELD_NUMBER = 2;
-  private volatile java.lang.Object except_;
+  public static final int MESSAGE_FIELD_NUMBER = 2;
+  private volatile java.lang.Object message_;
   /**
-   * <code>optional string except = 2;</code>
+   * <code>optional string message = 2;</code>
    */
-  public java.lang.String getExcept() {
-    java.lang.Object ref = except_;
+  public java.lang.String getMessage() {
+    java.lang.Object ref = message_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      except_ = s;
+      message_ = s;
       return s;
     }
   }
   /**
-   * <code>optional string except = 2;</code>
+   * <code>optional string message = 2;</code>
    */
   public com.google.protobuf.ByteString
-      getExceptBytes() {
-    java.lang.Object ref = except_;
+      getMessageBytes() {
+    java.lang.Object ref = message_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      except_ = b;
+      message_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -177,8 +177,8 @@ public  final class CheckSignResp extends
     if (success_ != false) {
       output.writeBool(1, success_);
     }
-    if (!getExceptBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, except_);
+    if (!getMessageBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
     if (!getRequestIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, requestId_);
@@ -194,8 +194,8 @@ public  final class CheckSignResp extends
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(1, success_);
     }
-    if (!getExceptBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, except_);
+    if (!getMessageBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
     if (!getRequestIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, requestId_);
@@ -218,8 +218,8 @@ public  final class CheckSignResp extends
     boolean result = true;
     result = result && (getSuccess()
         == other.getSuccess());
-    result = result && getExcept()
-        .equals(other.getExcept());
+    result = result && getMessage()
+        .equals(other.getMessage());
     result = result && getRequestId()
         .equals(other.getRequestId());
     return result;
@@ -235,8 +235,8 @@ public  final class CheckSignResp extends
     hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getSuccess());
-    hash = (37 * hash) + EXCEPT_FIELD_NUMBER;
-    hash = (53 * hash) + getExcept().hashCode();
+    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getMessage().hashCode();
     hash = (37 * hash) + REQUEST_ID_FIELD_NUMBER;
     hash = (53 * hash) + getRequestId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -359,7 +359,7 @@ public  final class CheckSignResp extends
       super.clear();
       success_ = false;
 
-      except_ = "";
+      message_ = "";
 
       requestId_ = "";
 
@@ -386,7 +386,7 @@ public  final class CheckSignResp extends
     public com.redteamobile.scloud.CheckSignResp buildPartial() {
       com.redteamobile.scloud.CheckSignResp result = new com.redteamobile.scloud.CheckSignResp(this);
       result.success_ = success_;
-      result.except_ = except_;
+      result.message_ = message_;
       result.requestId_ = requestId_;
       onBuilt();
       return result;
@@ -432,8 +432,8 @@ public  final class CheckSignResp extends
       if (other.getSuccess() != false) {
         setSuccess(other.getSuccess());
       }
-      if (!other.getExcept().isEmpty()) {
-        except_ = other.except_;
+      if (!other.getMessage().isEmpty()) {
+        message_ = other.message_;
         onChanged();
       }
       if (!other.getRequestId().isEmpty()) {
@@ -492,71 +492,71 @@ public  final class CheckSignResp extends
       return this;
     }
 
-    private java.lang.Object except_ = "";
+    private java.lang.Object message_ = "";
     /**
-     * <code>optional string except = 2;</code>
+     * <code>optional string message = 2;</code>
      */
-    public java.lang.String getExcept() {
-      java.lang.Object ref = except_;
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        except_ = s;
+        message_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>optional string except = 2;</code>
+     * <code>optional string message = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getExceptBytes() {
-      java.lang.Object ref = except_;
+        getMessageBytes() {
+      java.lang.Object ref = message_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        except_ = b;
+        message_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>optional string except = 2;</code>
+     * <code>optional string message = 2;</code>
      */
-    public Builder setExcept(
+    public Builder setMessage(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      except_ = value;
+      message_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string except = 2;</code>
+     * <code>optional string message = 2;</code>
      */
-    public Builder clearExcept() {
+    public Builder clearMessage() {
       
-      except_ = getDefaultInstance().getExcept();
+      message_ = getDefaultInstance().getMessage();
       onChanged();
       return this;
     }
     /**
-     * <code>optional string except = 2;</code>
+     * <code>optional string message = 2;</code>
      */
-    public Builder setExceptBytes(
+    public Builder setMessageBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      except_ = value;
+      message_ = value;
       onChanged();
       return this;
     }

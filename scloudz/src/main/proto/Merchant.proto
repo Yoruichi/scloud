@@ -26,7 +26,7 @@ message CheckSignReq {
 
 message CheckSignResp {
     bool success = 1;
-    string except = 2;
+    string message = 2;
     string request_id = 3;
 }
 
