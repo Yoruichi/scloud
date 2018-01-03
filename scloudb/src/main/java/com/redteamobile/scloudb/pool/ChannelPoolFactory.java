@@ -7,7 +7,6 @@ import io.grpc.netty.NettyChannelBuilder;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 
@@ -18,12 +17,12 @@ public class ChannelPoolFactory implements PooledObjectFactory<ManagedChannel> {
 
     private String host;
     private int port;
-    @Value("${grpc.ssl.ca_file}")
     private String caFilePath;
 
-    public ChannelPoolFactory(String host, int port) {
+    public ChannelPoolFactory(String host, int port, String caFilePath) {
         this.host = host;
         this.port = port;
+        this.caFilePath = caFilePath;
     }
 
     @Override public PooledObject<ManagedChannel> makeObject() throws Exception {
