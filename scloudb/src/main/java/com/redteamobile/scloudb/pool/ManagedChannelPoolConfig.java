@@ -3,6 +3,8 @@ package com.redteamobile.scloudb.pool;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -20,12 +22,18 @@ public class ManagedChannelPoolConfig {
     @Value("${grpc.ssl.ca_file}")
     private String caFilePath;
 
+    private Logger logger = LoggerFactory.getLogger(ManagedChannelPoolConfig.class);
+
     @Bean
     public ChannelPool pool() {
         final InstanceInfo instanceInfo =
                 eurekaClient.getNextServerFromEureka("compute-service", false);
+        logger.info(
+                "Will generate channel pool factory for next server name [compute-service] on [{}]:[{}] with CA file [{}]",
+                instanceInfo.getIPAddr(), instanceInfo.getPort(), caFilePath);
         ChannelPoolFactory factory =
-                new ChannelPoolFactory(instanceInfo.getIPAddr(), instanceInfo.getPort(), this.caFilePath);
+                new ChannelPoolFactory(instanceInfo.getIPAddr(), instanceInfo.getPort(),
+                        this.caFilePath);
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
         config.setTestOnBorrow(true);
         config.setTestOnCreate(true);
