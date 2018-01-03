@@ -20,7 +20,7 @@ public class ChannelPoolFactory implements PooledObjectFactory<ManagedChannel> {
 
     private String host;
     private int port;
-    @Value("grpc.ssl.ca_file")
+    @Value("${grpc.ssl.ca_file}")
     private String caFilePath;
 
     public ChannelPoolFactory(String host, int port) {

@@ -15,9 +15,9 @@ import java.io.File;
  */
 @Component
 public class MyGRpcServerBuilderConfigurer extends GRpcServerBuilderConfigurer {
-    @Value("grpc.ssl.ca_file")
+    @Value("${grpc.ssl.ca_file}")
     private String caFilePath;
-    @Value("grpc.ssl.key_file")
+    @Value("${grpc.ssl.key_file}")
     private String keyFilePath;
 
     @Override public void configure(ServerBuilder<?> serverBuilder) {
