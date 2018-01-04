@@ -34,6 +34,7 @@ public class ManagedChannelPoolConfig {
                 eurekaClient.getNextServerFromEureka("compute-service", false);
         String nextIpAddr = instanceInfo.getIPAddr();
         int nextPort = instanceInfo.getPort();
+        logger.debug("refresh pool with next server instance on [{}]:[{}].", nextIpAddr, nextPort);
         if (this.ipAddr.equals(nextIpAddr) && this.port == nextPort && this.pool != null)
             return this.pool;
 
