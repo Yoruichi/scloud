@@ -85,14 +85,15 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
             return;
         }
         if (Math.abs(System.currentTimeMillis() - timestamp) > 10 * 60 * 1000) {
-            logger.warn("Request time was not valid.");
+            logger.warn("Request time was not valid.Current timestamp is {} and request time is {}",
+                    System.currentTimeMillis(), timestamp);
             responseObserver
                     .onNext(builder.setMessage("Request time was not valid.").build());
             responseObserver.onCompleted();
             return;
         }
         if (!signType.toUpperCase().equals("SHA1")) {
-            logger.warn("Request signature type is not supported.");
+            logger.warn("Request signature type [{}] is not supported.", signType.toUpperCase());
             responseObserver
                     .onNext(builder.setMessage("Request signature type is not supported.").build());
             responseObserver.onCompleted();
@@ -102,7 +103,7 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
             JsonNode b = new ObjectMapper().readTree(body);
             Merchant merchant = merchantDao.select(Merchant.build().setCode(merchantCode));
             if (!accessKey.equals(merchant.getAccessKey())) {
-                logger.warn("Wrong access key for given merchant.");
+                logger.warn("Wrong access key [{}] for given merchant [{}].Expected {}", accessKey, merchant.getAccessKey());
                 responseObserver
                         .onNext(builder.setMessage("Wrong access key for given merchant.").build());
                 responseObserver.onCompleted();
@@ -111,7 +112,7 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
 
             String strToSign = MD5(body).concat(merchant.getSecretKey());
             String expected = SHA1(strToSign);
-            logger.debug("Got sign {}, and expected {}.", sign, expected);
+            logger.info("Got sign {}, and expected {}.", sign, expected);
             if (!sign.equals(expected)) {
                 logger.warn("Not valid sign.");
                 responseObserver.onNext(builder.setMessage("Not valid sign.").build());
