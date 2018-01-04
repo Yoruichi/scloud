@@ -1,14 +1,11 @@
 package com.redteamobile.scloudb.pool;
 
 import io.grpc.ManagedChannel;
-import io.grpc.netty.GrpcSslContexts;
-import io.grpc.netty.NegotiationType;
 import io.grpc.netty.NettyChannelBuilder;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 
-import java.io.File;
 
 /**
  * Created by yoruichi on 17/9/13.
@@ -17,21 +14,19 @@ public class ChannelPoolFactory implements PooledObjectFactory<ManagedChannel> {
 
     private String host;
     private int port;
-    private String caFilePath;
 
-    public ChannelPoolFactory(String host, int port, String caFilePath) {
+    public ChannelPoolFactory(String host, int port) {
         this.host = host;
         this.port = port;
-        this.caFilePath = caFilePath;
     }
 
     @Override public PooledObject<ManagedChannel> makeObject() throws Exception {
 //        final ManagedChannel channel = ManagedChannelBuilder
         final ManagedChannel channel = NettyChannelBuilder
                 .forAddress(host, port)
-                .sslContext(GrpcSslContexts.forClient().trustManager(new File(caFilePath)).build())
-                .negotiationType(NegotiationType.TLS)
-//                .usePlaintext(true)
+//                .sslContext(GrpcSslContexts.forClient().trustManager(new File(caFilePath)).build())
+//                .negotiationType(NegotiationType.TLS)
+                .usePlaintext(true)
                 .build();
         return new DefaultPooledObject<>(channel);
     }

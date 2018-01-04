@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,21 +20,29 @@ import org.springframework.context.annotation.Configuration;
 public class ManagedChannelPoolConfig {
     @Autowired
     private EurekaClient eurekaClient;
-    @Value("${grpc.ssl.ca_file}")
-    private String caFilePath;
+
+    private String ipAddr = "";
+    private int port;
+    private ChannelPool pool;
 
     private Logger logger = LoggerFactory.getLogger(ManagedChannelPoolConfig.class);
 
+    @RefreshScope
     @Bean
     public ChannelPool pool() {
         final InstanceInfo instanceInfo =
                 eurekaClient.getNextServerFromEureka("compute-service", false);
+        String nextIpAddr = instanceInfo.getIPAddr();
+        int nextPort = instanceInfo.getPort();
+        if (this.ipAddr.equals(nextIpAddr) && this.port == nextPort && this.pool != null)
+            return this.pool;
+
         logger.info(
-                "Will generate channel pool factory for next server name [compute-service] on [{}]:[{}] with CA file [{}]",
-                instanceInfo.getIPAddr(), instanceInfo.getPort(), caFilePath);
+                "Will generate channel pool factory for next server name [compute-service] on [{}]:[{}]",
+                nextIpAddr, nextPort);
+
         ChannelPoolFactory factory =
-                new ChannelPoolFactory(instanceInfo.getIPAddr(), instanceInfo.getPort(),
-                        this.caFilePath);
+                new ChannelPoolFactory(instanceInfo.getIPAddr(), instanceInfo.getPort());
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
         config.setTestOnBorrow(true);
         config.setTestOnCreate(true);
@@ -41,6 +50,10 @@ public class ManagedChannelPoolConfig {
         config.setLifo(true);
         config.setJmxEnabled(false);
 
-        return new ChannelPool(factory, config);
+        this.pool = new ChannelPool(factory, config);
+        this.ipAddr = nextIpAddr;
+        this.port = nextPort;
+
+        return this.pool;
     }
 }
