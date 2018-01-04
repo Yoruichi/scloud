@@ -48,7 +48,8 @@ public class ChannelPoolFactory {
         config.setLifo(true);
         config.setJmxEnabled(false);
 
-        this.pool.close();
+        if (this.pool != null)
+            this.pool.close();
 
         this.pool = new ChannelPool(factory, config);
         this.ipAddr = nextIpAddr;
