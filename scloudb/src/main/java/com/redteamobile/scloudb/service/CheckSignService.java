@@ -7,11 +7,13 @@ import com.redteamobile.scloud.MerchantServGrpc;
 import com.redteamobile.scloudb.pool.ChannelPool;
 import io.grpc.ManagedChannel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by yoruichi on 17/12/28.
  */
+@RefreshScope
 @Service
 public class CheckSignService {
 

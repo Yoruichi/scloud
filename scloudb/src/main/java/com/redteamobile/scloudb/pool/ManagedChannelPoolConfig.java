@@ -27,7 +27,6 @@ public class ManagedChannelPoolConfig {
 
     private Logger logger = LoggerFactory.getLogger(ManagedChannelPoolConfig.class);
 
-    @RefreshScope
     @Bean
     public ChannelPool pool() {
         final InstanceInfo instanceInfo =
