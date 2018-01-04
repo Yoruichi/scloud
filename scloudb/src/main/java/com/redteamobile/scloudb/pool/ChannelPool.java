@@ -16,6 +16,6 @@ public class ChannelPool extends GenericObjectPool<ManagedChannel> {
     public ChannelPool(PooledObjectFactory<ManagedChannel> factory,
             GenericObjectPoolConfig config) {
         super(factory, config);
-        logger.info("Create pool for class [ManagedChannel].");
+        logger.info("Create makePool for class [ManagedChannel].");
     }
 }

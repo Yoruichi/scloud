@@ -1,51 +1,59 @@
 package com.redteamobile.scloudb.pool;
 
-import io.grpc.ManagedChannel;
-import io.grpc.netty.NettyChannelBuilder;
-import org.apache.commons.pool2.PooledObject;
-import org.apache.commons.pool2.PooledObjectFactory;
-import org.apache.commons.pool2.impl.DefaultPooledObject;
-
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by yoruichi on 17/9/13.
  */
-public class ChannelPoolFactory implements PooledObjectFactory<ManagedChannel> {
+@EnableEurekaClient
+@Component
+public class ChannelPoolFactory {
+    @Autowired
+    private EurekaClient eurekaClient;
 
-    private String host;
+    private String ipAddr = "";
     private int port;
+    private ChannelPool pool;
 
-    public ChannelPoolFactory(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
+    private Logger logger = LoggerFactory.getLogger(ChannelPoolFactory.class);
 
-    @Override public PooledObject<ManagedChannel> makeObject() throws Exception {
-//        final ManagedChannel channel = ManagedChannelBuilder
-        final ManagedChannel channel = NettyChannelBuilder
-                .forAddress(host, port)
-//                .sslContext(GrpcSslContexts.forClient().trustManager(new File(caFilePath)).build())
-//                .negotiationType(NegotiationType.TLS)
-                .usePlaintext(true)
-                .build();
-        return new DefaultPooledObject<>(channel);
-    }
+    public ChannelPool makePool() {
+        final InstanceInfo instanceInfo =
+                eurekaClient.getNextServerFromEureka("compute-service", false);
+        String nextIpAddr = instanceInfo.getIPAddr();
+        int nextPort = instanceInfo.getPort();
+        logger.debug("refresh makePool with next server instance on [{}]:[{}].", nextIpAddr,
+                nextPort);
+        if (this.ipAddr.equals(nextIpAddr) && this.port == nextPort && this.pool != null)
+            return this.pool;
 
-    @Override public void destroyObject(PooledObject<ManagedChannel> p) throws Exception {
-        ManagedChannel channel = p.getObject();
-        channel.shutdownNow();
-        while (channel.isShutdown()) channel = null;
-    }
+        logger.info(
+                "Will generate channel makePool factory for next server name [compute-service] on [{}]:[{}]",
+                nextIpAddr, nextPort);
 
-    @Override public boolean validateObject(PooledObject<ManagedChannel> p) {
-        return !(p.getObject().isTerminated() || p.getObject().isShutdown());
-    }
+        ChannelFactory factory =
+                new ChannelFactory(instanceInfo.getIPAddr(), instanceInfo.getPort());
+        GenericObjectPoolConfig config = new GenericObjectPoolConfig();
+        config.setTestOnBorrow(true);
+        config.setTestOnCreate(true);
+        config.setTestOnReturn(true);
+        config.setLifo(true);
+        config.setJmxEnabled(false);
 
-    @Override public void activateObject(PooledObject<ManagedChannel> p) throws Exception {
+        this.pool.close();
 
-    }
+        this.pool = new ChannelPool(factory, config);
+        this.ipAddr = nextIpAddr;
+        this.port = nextPort;
 
-    @Override public void passivateObject(PooledObject<ManagedChannel> p) throws Exception {
-
+        return this.pool;
     }
 }

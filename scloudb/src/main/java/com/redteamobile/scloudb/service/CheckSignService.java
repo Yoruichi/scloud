@@ -5,20 +5,19 @@ import com.redteamobile.scloud.CheckSignReq;
 import com.redteamobile.scloud.CheckSignResp;
 import com.redteamobile.scloud.MerchantServGrpc;
 import com.redteamobile.scloudb.pool.ChannelPool;
+import com.redteamobile.scloudb.pool.ChannelPoolFactory;
 import io.grpc.ManagedChannel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by yoruichi on 17/12/28.
  */
-@RefreshScope
 @Service
 public class CheckSignService {
 
     @Autowired
-    private ChannelPool pool;
+    private ChannelPoolFactory factory;
 
     public CheckSignResp checkSign(String merchantCode, String sign, JsonNode body)
             throws Exception {
@@ -32,6 +31,7 @@ public class CheckSignService {
                 .setSign(sign)
                 .build();
         ManagedChannel channel = null;
+        ChannelPool pool = factory.makePool();
         try {
             channel = pool.borrowObject();
             MerchantServGrpc.MerchantServBlockingStub stub =
