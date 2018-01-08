@@ -9,6 +9,8 @@ import com.redteamobile.scloud.MerchantServGrpc;
 import com.redteamobile.scloudb.pool.ChannelPool;
 import com.redteamobile.scloudb.pool.ChannelPoolWithEurekaFactory;
 import io.grpc.ManagedChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckSignService {
 
+    private Logger logger = LoggerFactory.getLogger(CheckSignService.class);
+
     @Autowired
     @Qualifier("COMPUTE-SERVICE")
     private ChannelPoolWithEurekaFactory factory;
 
-    @HystrixCommand(fallbackMethod = "fallBack",
-            commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"))
+//    @HystrixCommand(fallbackMethod = "fallBack",
+//            commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"))
     public CheckSignResp checkSign(String merchantCode, String sign, JsonNode body)
             throws Exception {
         CheckSignReq request = CheckSignReq.newBuilder()
@@ -44,6 +48,9 @@ public class CheckSignService {
                     MerchantServGrpc.newBlockingStub(channel);
             CheckSignResp resp = stub.checkSign(request);
             return resp;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         } finally {
             if (channel != null)
                 pool.returnObject(channel);
@@ -51,6 +58,7 @@ public class CheckSignService {
     }
 
     public CheckSignResp fallBack(String merchantCode, String sign, JsonNode body) {
+        logger.warn("Warn! Method checkSign processed by fallback.");
         return CheckSignResp.newBuilder().setSuccess(false).setMessage("Network error.").build();
     }
 }

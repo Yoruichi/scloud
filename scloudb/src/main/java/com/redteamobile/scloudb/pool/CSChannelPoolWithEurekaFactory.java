@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component("COMPUTE-SERVICE")
 @Configuration
 public class CSChannelPoolWithEurekaFactory extends ChannelPoolWithEurekaFactory {
-    @Value("${compute-service}")
+    @Value("${scloudb.computer.service.name}")
     private String serviceName;
 
     @Override protected String getServiceName() {
