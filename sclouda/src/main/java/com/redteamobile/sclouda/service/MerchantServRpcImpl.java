@@ -103,7 +103,8 @@ public class MerchantServRpcImpl extends MerchantServGrpc.MerchantServImplBase {
             JsonNode b = new ObjectMapper().readTree(body);
             Merchant merchant = merchantDao.select(Merchant.build().setCode(merchantCode));
             if (!accessKey.equals(merchant.getAccessKey())) {
-                logger.warn("Wrong access key [{}] for given merchant [{}].Expected {}", accessKey, merchant.getAccessKey());
+                logger.warn("Wrong access key [{}] for given merchant [{}].Expected {}", accessKey,
+                        merchantCode, merchant.getAccessKey());
                 responseObserver
                         .onNext(builder.setMessage("Wrong access key for given merchant.").build());
                 responseObserver.onCompleted();

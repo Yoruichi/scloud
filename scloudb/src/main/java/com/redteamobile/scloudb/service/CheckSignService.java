@@ -1,13 +1,16 @@
 package com.redteamobile.scloudb.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.redteamobile.scloud.CheckSignReq;
 import com.redteamobile.scloud.CheckSignResp;
 import com.redteamobile.scloud.MerchantServGrpc;
 import com.redteamobile.scloudb.pool.ChannelPool;
-import com.redteamobile.scloudb.pool.ChannelPoolFactory;
+import com.redteamobile.scloudb.pool.ChannelPoolWithEurekaFactory;
 import io.grpc.ManagedChannel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,8 +20,11 @@ import org.springframework.stereotype.Service;
 public class CheckSignService {
 
     @Autowired
-    private ChannelPoolFactory factory;
+    @Qualifier("COMPUTE-SERVICE")
+    private ChannelPoolWithEurekaFactory factory;
 
+    @HystrixCommand(fallbackMethod = "fallBack",
+            commandProperties = @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"))
     public CheckSignResp checkSign(String merchantCode, String sign, JsonNode body)
             throws Exception {
         CheckSignReq request = CheckSignReq.newBuilder()
@@ -42,5 +48,9 @@ public class CheckSignService {
             if (channel != null)
                 pool.returnObject(channel);
         }
+    }
+
+    public CheckSignResp fallBack() {
+        return CheckSignResp.newBuilder().setSuccess(false).setMessage("Network error.").build();
     }
 }

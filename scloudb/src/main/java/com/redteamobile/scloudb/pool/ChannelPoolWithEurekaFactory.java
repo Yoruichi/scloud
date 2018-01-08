@@ -7,28 +7,26 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 
 import java.util.List;
 
 /**
  * Created by yoruichi on 17/9/13.
  */
-@EnableEurekaClient
-@Component
-public class ChannelPoolFactory {
+public abstract class ChannelPoolWithEurekaFactory {
     @Autowired
+    @LoadBalanced
     private EurekaClient eurekaClient;
 
+    protected abstract String getServiceName();
+
     private String ipAddr = "";
-    private String serviceName = "compute-service";
     private int port;
     private ChannelPool pool;
     private String serverId = "";
 
-    private Logger logger = LoggerFactory.getLogger(ChannelPoolFactory.class);
+    private Logger logger = LoggerFactory.getLogger(ChannelPoolWithEurekaFactory.class);
 
     public ChannelPool makePool() {
         if (!Strings.isNullOrEmpty(this.serverId) && !Strings.isNullOrEmpty(this.ipAddr)
@@ -38,20 +36,20 @@ public class ChannelPoolFactory {
                 return this.pool;
         }
         final InstanceInfo instanceInfo =
-                eurekaClient.getNextServerFromEureka(serviceName, false);
+                eurekaClient.getNextServerFromEureka(getServiceName(), false);
 
         String nextServerId = instanceInfo.getId();
         String nextIpAddr = instanceInfo.getIPAddr();
         int nextPort = instanceInfo.getPort();
-        logger.debug("refresh makePool with next server instance on [{}]:[{}].", nextIpAddr,
+        logger.debug("refresh pool with next server instance on [{}]:[{}].", nextIpAddr,
                 nextPort);
         if (this.serverId.equals(nextServerId) && this.ipAddr.equals(nextIpAddr)
                 && this.port == nextPort && this.pool != null)
             return this.pool;
 
         logger.info(
-                "Will generate channel makePool factory for next server name [compute-service] on [{}]:[{}]",
-                nextIpAddr, nextPort);
+                "Will generate channel makePool factory for next server name [{}] on [{}]:[{}]",
+                this.getServiceName(), nextIpAddr, nextPort);
 
         ChannelFactory factory =
                 new ChannelFactory(instanceInfo.getIPAddr(), instanceInfo.getPort());
