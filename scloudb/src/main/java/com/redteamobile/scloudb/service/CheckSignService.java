@@ -50,7 +50,7 @@ public class CheckSignService {
         }
     }
 
-    public CheckSignResp fallBack() {
+    public CheckSignResp fallBack(String merchantCode, String sign, JsonNode body) {
         return CheckSignResp.newBuilder().setSuccess(false).setMessage("Network error.").build();
     }
 }
